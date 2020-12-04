@@ -61,7 +61,7 @@ module.exports.getAuthURL = async () => {
 };
 
 module.exports.getAccessToken = async (event) => {
-  //code will go in here
+  //code will go in here (auth-server-auth-server-dev-getAuthURL)
   const oAuth2Client = new google.auth.OAuth2(
     client_id,
     client_secret,
@@ -89,10 +89,11 @@ module.exports.getAccessToken = async (event) => {
       console.error(err);
       return {
         statusCode: 500,
-        //was this missing?
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
+        //was this missing? rather not
+        //headers: {
+        //  "Access-Control-Allow-Origin": "*",
+        //},
+        //was this missing? rather not
         body: JSON.stringify(err),
       };
     });
