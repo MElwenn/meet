@@ -82,6 +82,11 @@ module.exports.getAccessToken = async (event) => {
       // Respond with OAuth token
       return {
         statusCode: 200,
+        //was this missing to avoid the CORS-Error?
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+        //was this missing to avoid the CORS-Error?
         body: JSON.stringify(token),
       };
     })
@@ -89,12 +94,68 @@ module.exports.getAccessToken = async (event) => {
       console.error(err);
       return {
         statusCode: 500,
-        //was this missing? rather not
-        //headers: {
-        //  "Access-Control-Allow-Origin": "*",
-        //},
-        //was this missing? rather not
+        //was this missing to avoid the CORS-Error?
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+        //was this missing to avoid the CORS-Error?
         body: JSON.stringify(err),
       };
     });
 }
+/* wait until CORS Error is resolved
+module.exports.getCalendarEvents = async (event) => {
+
+  const oAuth2Client = new google.auth.OAuth2(
+    client_id,
+    client_secret,
+    redirect_uris[0]
+  );
+
+  const access_token = decodeURIComponent(`${event.pathParameters.access_token}`);
+  // use access token returned from getAccessToken function
+  oAuth2Client.setCredentials({ access_token });
+
+  return new Promise((resolve, reject) => {
+    calendar.events.list(
+    {
+      calendarId: calendar_id,
+      auth: oAuth2Client,
+      timeMin: new Date().toISOString(),
+      singleEvents: true,
+      orderBy: "startTime",
+    },
+    (error, response) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(response);
+      }
+    });
+  })
+  .then((results) => {
+    return {
+      statusCode: 200,
+      //was this missing to avoid the CORS-Error?
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      //was this missing to avoid the CORS-Error?
+      body: JSON.stringify({
+        events: results.data.items,
+      }),
+    };
+  })
+  .catch((err) => {
+    console.error(err);
+    return {
+      statusCode: 500,
+      //was this missing to avoid the CORS-Error?
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      //was this missing to avoid the CORS-Error?
+      body: JSON.stringify(err),
+    };
+  });
+} */
