@@ -69,7 +69,15 @@ module.exports.getAccessToken = async (event) => {
   );
   // Get authorization code from the URL query
   const code = decodeURIComponent(`${event.pathParameters.code}`);
-
+  // test
+  return {
+    statusCode: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify({ client_id, client_secret })
+  }
+  // test
   return new Promise((resolve, reject) => {
     oAuth2Client.getToken(code, (err, token) => {
       if (err) {
