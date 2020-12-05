@@ -76,7 +76,7 @@
         const getAccessToken = document.getElementById("getToken");
         const accessTokenElement = document.getElementById("accessToken");
         //const getToken = "https://jcu7sw52pi.execute-api.eu-central-1.amazonaws.com/dev/api/token/{code}";
-        const getToken = "https://fxnhimaksd.execute-api.eu-central-1.amazonaws.com/auth-server-dev/api/token/{code}";
+        const getToken = "https://fxnhimaksd.execute-api.eu-central-1.amazonaws.com/auth-server-dev/api/token/";
 
         getAccessToken.onclick = function () {
             let code = codeValue.value;
@@ -88,28 +88,33 @@
             const getTokenRequest = getToken + code;
             fetch(getTokenRequest) // this line throws an ERROR and I don't know why
                 .then(function (response) {
+                    console.log(codeValue.value, getToken, "============")
                     return response.json();
                 })
                 .then(function (json) {
                     accessTokenElement.innerText = JSON.stringify(json);
-                });
+                })
+                .catch((err) => console.log(err))
         };
 
         /* ---- STEP 3 */
         const getEvents = document.getElementById("getEvents");
         const events = document.getElementById("events");
-        const getCalendarEvents = "https://fxnhimaksd.execute-api.eu-central-1.amazonaws.com/auth-server-dev/api/get-events/{access_token}";
+        const getCalendarEvents = "https://fxnhimaksd.execute-api.eu-central-1.amazonaws.com/auth-server-dev/api/get-events/";
 
         getEvents.onclick = function () {
             const { access_token } = JSON.parse(accessTokenElement.innerText);
+            console.log(access_token);
             const eventRequest = getCalendarEvents + access_token;
             fetch(eventRequest)
                 .then(function (response) {
+                    console.log(response);
                     return response.json();
                 })
                 .then(function (json) {
                     events.innerText = JSON.stringify(json, null, 2);
-                });
+                })
+                .catch((err) => console.log(err))
         };
     </script>
 </body>
