@@ -26,7 +26,7 @@ describe('<Event /> component', () => {
         expect(EventWrapper.find('.event-container')).toHaveLength(1);
     });
 
-    /*test('render event container elements', () => { // this test fails for whatever reason
+    /*test('render event container elements', () => { // this test fails for whatever reason DEEMED not needed => remove class from HTML
         expect(EventWrapper.find('.event-container-elements')).toHaveLength(3);
     });*/
 
