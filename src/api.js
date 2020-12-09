@@ -16,3 +16,7 @@ export const extractEvents = (events) => {
     var oneEvent = [...new Set(extractEvents)];
     return oneEvent;
 };
+
+export const getEvents = async () => {
+    return mockData;
+};

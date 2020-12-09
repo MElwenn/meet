@@ -51,7 +51,3 @@ class App extends Component {
 
 
 export default App;
-
-export const getEvents = async () => {
-  return mockData;
-};
