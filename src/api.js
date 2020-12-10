@@ -69,7 +69,7 @@ export const getAccessToken = async () => {
 const getToken = async (code) => {
     const encodeCode = encodeURIComponent(code);
     const { access_token } = await fetch(
-        `YOUR_GET_ACCESS_TOKEN_ENDPOINT/${encodeCode}`
+        `https://fxnhimaksd.execute-api.eu-central-1.amazonaws.com/auth-server-dev/api/get-auth-url/${encodeCode}`
     )
         .then((res) => {
             return res.json();
