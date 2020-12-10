@@ -56,7 +56,7 @@ export const getAccessToken = async () => {
         const code = await searchParams.get("code");
         if (!code) {
             const results = await axios.get(
-                "https://fxnhimaksd.execute-api.eu-central-1.amazonaws.com/auth-server-dev/api/get-auth-url"
+                "https://jcu7sw52pi.execute-api.eu-central-1.amazonaws.com/dev/api/get-auth-url"
             );
             const { authUrl } = results.data;
             return (window.location.href = authUrl);
@@ -69,7 +69,7 @@ export const getAccessToken = async () => {
 const getToken = async (code) => {
     const encodeCode = encodeURIComponent(code);
     const { access_token } = await fetch(
-        `https://fxnhimaksd.execute-api.eu-central-1.amazonaws.com/auth-server-dev/api/get-auth-url/${encodeCode}`
+        `https://jcu7sw52pi.execute-api.eu-central-1.amazonaws.com/dev/api/token/${encodeCode}`
     )
         .then((res) => {
             return res.json();
@@ -93,7 +93,7 @@ export const getEvents = async () => {
 
     if (token) {
         removeQuery();
-        const url = `https://fxnhimaksd.execute-api.eu-central-1.amazonaws.com/auth-server-dev/api/get-auth-url/${token}`;
+        const url = `https://jcu7sw52pi.execute-api.eu-central-1.amazonaws.com/dev/api/get-events/${token}`;
         const result = await axios.get(url);
         if (result.data) {
             var locations = extractLocations(result.data.events);
