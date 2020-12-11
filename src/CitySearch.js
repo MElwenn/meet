@@ -8,6 +8,11 @@ class CitySearch extends Component {
         showSuggestions: false
     }
 
+    // added to "load a list of events by default"
+    componentDidMount() {
+        this.setState({ locations: this.props.locations });
+    }
+
     handleInputChanged = (event) => {
         const value = event.target.value;
         const suggestions = this.props.locations.filter((location) => {
