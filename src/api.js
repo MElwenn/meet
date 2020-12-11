@@ -83,13 +83,13 @@ const getToken = async (code) => {
 
 export const getEvents = async () => {
     NProgress.start();
-    // added
-    /*if (!window.location.href.startsWith('http://localhost')
+    // added to avoid loading error
+    if (!window.location.href.startsWith('http://localhost')
     ) {
         const events = localStorage.getItem('lastEvents');
         NProgress.done();
         return JSON.parse(events).events;
-    }*/
+    }
 
     if (window.location.href.startsWith("http://localhost")) {
         NProgress.done();
