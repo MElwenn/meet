@@ -56,7 +56,7 @@ export const getAccessToken = async () => {
         const code = await searchParams.get("code");
         if (!code) {
             const results = await axios.get(
-                "https://jcu7sw52pi.execute-api.eu-central-1.amazonaws.com/dev/api/get-auth-url"
+                `https://jcu7sw52pi.execute-api.eu-central-1.amazonaws.com/dev/api/get-auth-url`
             );
             const { authUrl } = results.data;
             return (window.location.href = authUrl);
@@ -83,6 +83,13 @@ const getToken = async (code) => {
 
 export const getEvents = async () => {
     NProgress.start();
+    // added
+    if (!window.location.href.startsWith('http://localhost')
+    ) {
+        const events = localStorage.getItem('lastEvents');
+        NProgress.done();
+        return JSON.parse(events).events;
+    }
 
     if (window.location.href.startsWith("http://localhost")) {
         NProgress.done();

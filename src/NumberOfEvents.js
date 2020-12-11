@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class NumberOfEvents extends Component {
     state = {
-        nbrOfEvents: 6
+        nbrOfEvents: 32
     };
 
 
