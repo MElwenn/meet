@@ -5,8 +5,8 @@ import NumberOfEvents from '../NumberOfEvents';
 describe('<NumberOfEvents /> component', () => {
     let NumberOfEventsWrapper;
     beforeAll(() => {
-        NumberOfEventsWrapper = shallow(<NumberOfEvents />);
-        //NumberOfEventsWrapper = shallow(<NumberOfEvents updateEvents={() => { }} />);
+        //NumberOfEventsWrapper = shallow(<NumberOfEvents />); //Ali's advice: <NumberOfEvents updateEvents={() => null} />, but "empty better than null"
+        NumberOfEventsWrapper = shallow(<NumberOfEvents updateEvents={() => { }} />);
     })
 
     test('render textbox element', () => {

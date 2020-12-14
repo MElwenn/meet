@@ -6,7 +6,6 @@ class NumberOfEvents extends Component {
         errMessage: ''
     };
 
-
     handleInputChanged = (event) => {
         //const value = event.target.value;
         //this.setState({ nbrOfEvents: value });
