@@ -85,7 +85,7 @@ export const getEvents = async () => {
     NProgress.start();
 
     // Ali's advice: add an if condition to check if the variable events is not null
-    let events;
+
     /*if (events = !null) {
 
         // added to avoid loading error
