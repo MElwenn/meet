@@ -84,23 +84,7 @@ const getToken = async (code) => {
 export const getEvents = async () => {
     NProgress.start();
 
-    // Ali's advice: add an if condition to check if the variable events is not null
-
-    /*if (events = !null) {
-
-        // added to avoid loading error
-        if (!window.location.href.startsWith('http://localhost')
-        ) {
-            const events = localStorage.getItem('lastEvents');
-            NProgress.done();
-            return JSON.parse(events).events;
-        }
-    }
-    else {
-        NProgress.done();
-        return mockData;
-    } */
-
+    //if (window.location.href.startsWith("http://localhost:3000/")) {
     if (window.location.href.startsWith("http://localhost")) {
         NProgress.done();
         return mockData;

@@ -26,7 +26,7 @@ class Event extends Component {
                     </button>
 
                     {showDetails && (
-                        <div className="event-details">
+                        <div className="event-details" id="eventDetails">
                             <p className="event-description">{event.description}</p>
                         </div>
                     )}
