@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { InfoAlert } from './Alert';
 
 class CitySearch extends Component {
     state = {
         query: '',
         locations: [],
         suggestions: [],
-        showSuggestions: false
+        showSuggestions: false,
+        infoText: ''
     }
 
     // added to "load a list of events by default"
@@ -15,13 +17,23 @@ class CitySearch extends Component {
 
     handleInputChanged = (event) => {
         const value = event.target.value;
+        this.setState({ showSuggestions: true });
         const suggestions = this.props.locations.filter((location) => {
             return location.toUpperCase().indexOf(value.toUpperCase()) > -1;
         });
-        this.setState({
-            query: value,
-            suggestions,
-        });
+        if (suggestions.lenght === 0) {
+            this.setState({
+                query: value,
+                infoText: 'Sorry, the City, you typed in could not be found, please check and try again.'
+            });
+        }
+        else {
+            return this.setState({
+                query: value,
+                suggestions,
+                infoText: ''
+            })
+        }
     };
 
     handleItemClicked = (suggestion) => {
@@ -36,6 +48,8 @@ class CitySearch extends Component {
     render() {
         return (
             <div className="CitySearch">
+
+                <InfoAlert className="info-text" text={this.state.infoText} />
 
                 <input type="text"
                     className="city"
