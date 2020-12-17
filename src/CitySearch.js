@@ -21,6 +21,26 @@ class CitySearch extends Component {
         const suggestions = this.props.locations.filter((location) => {
             return location.toUpperCase().indexOf(value.toUpperCase()) > -1;
         });
+        if (suggestions.length === 0) {
+            this.setState({
+                query: value,
+                infoText: 'Sorry, the City, you typed in could not be found, please check and try again.',
+            });
+        } else {
+            return this.setState({
+                query: value,
+                suggestions,
+                infoText: ''
+            });
+        }
+    };
+
+    /*handleInputChanged = (event) => {
+        const value = event.target.value;
+        this.setState({ showSuggestions: true });
+        const suggestions = this.props.locations.filter((location) => {
+            return location.toUpperCase().indexOf(value.toUpperCase()) > -1;
+        });
         if (suggestions.lenght === 0) {
             this.setState({
                 query: value,
@@ -34,7 +54,7 @@ class CitySearch extends Component {
                 infoText: ''
             })
         }
-    };
+    };*/
 
     handleItemClicked = (suggestion) => {
         this.setState({
@@ -49,7 +69,7 @@ class CitySearch extends Component {
         return (
             <div className="CitySearch">
 
-                <InfoAlert className="info-text" text={this.state.infoText} />
+                <InfoAlert text={this.state.infoText} />
 
                 <input type="text"
                     className="city"
