@@ -6,6 +6,8 @@ import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { extractLocations, getEvents } from './api';
+import { InfoAlert } from './Alert';
+import { ErrorAlert } from './Alert'
 
 class App extends Component {
   state = {
@@ -87,7 +89,9 @@ class App extends Component {
         <h1>What's up next ...? </h1>
         <h2>Choose your City</h2>
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
+        <InfoAlert className="info-text" text={this.state.infoText} />
         <NumberOfEvents nbrOfEvents={this.state.result} updateEvents={this.updateEvents} />
+        <ErrorAlert text={this.state.errMessage} />
         <EventList events={this.state.events} />
       </div>
     );
