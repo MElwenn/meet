@@ -24,7 +24,7 @@ class CitySearch extends Component {
         if (suggestions.length === 0) {
             this.setState({
                 query: value,
-                infoText: 'Sorry, the City, you typed in could not be found, please check and try again.',
+                infoText: 'Sorry, City could not be found, please check and try again.',
             });
         } else {
             return this.setState({
@@ -34,27 +34,6 @@ class CitySearch extends Component {
             });
         }
     };
-
-    /*handleInputChanged = (event) => {
-        const value = event.target.value;
-        this.setState({ showSuggestions: true });
-        const suggestions = this.props.locations.filter((location) => {
-            return location.toUpperCase().indexOf(value.toUpperCase()) > -1;
-        });
-        if (suggestions.lenght === 0) {
-            this.setState({
-                query: value,
-                infoText: 'Sorry, the City, you typed in could not be found, please check and try again.'
-            });
-        }
-        else {
-            return this.setState({
-                query: value,
-                suggestions,
-                infoText: ''
-            })
-        }
-    };*/
 
     handleItemClicked = (suggestion) => {
         this.setState({
