@@ -14,7 +14,8 @@ class App extends Component {
     events: [],
     locations: [],
     NumberOfEvents: 32,
-    selectedLocation: 'all'
+    selectedLocation: 'all',
+    infoText: ''
   };
 
   //filter the results based on location
