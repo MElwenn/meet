@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 //import * as atatus from 'atatus-js'; // CF version differs from atatus
-import * as atatus from 'atatus-spa';
+/*import * as atatus from 'atatus-spa'; */
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,7 +20,7 @@ ReactDOM.render(
 // Learn more about service workers: https://bit.ly/CRA-PWA
 //serviceWorker.unregister();
 serviceWorker.register();
-atatus.config('f83f753b07db491c8a72576f781d4c9b').install();
+/*atatus.config('f83f753b07db491c8a72576f781d4c9b').install();*/
 
 //To check that Atatus has been integrated successfully, at the bottom of your “index.js” file.
 //atatus.notify(new Error('Test Atatus Setup'));
