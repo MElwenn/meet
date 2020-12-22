@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-//import * as serviceWorker from './serviceWorker';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import * as serviceWorker from './serviceWorker';
+//import * as serviceWorkerRegistration from './serviceWorkerRegistration'; // ANs version
 //import * as atatus from 'atatus-js'; // CF version differs from atatus
 /*import * as atatus from 'atatus-spa'; */
 
@@ -20,8 +20,8 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 //serviceWorker.unregister();
-//serviceWorker.register();
-serviceWorkerRegistration.register();
+serviceWorker.register();
+//serviceWorkerRegistration.register();                                     // ANs version
 /*atatus.config('f83f753b07db491c8a72576f781d4c9b').install();*/
 
 //To check that Atatus has been integrated successfully, at the bottom of your “index.js” file.
