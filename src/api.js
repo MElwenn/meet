@@ -84,6 +84,12 @@ const getToken = async (code) => {
 export const getEvents = async () => {
     NProgress.start();
 
+    if (!navigator.onLine) {
+        const events = localStorage.getItem("lastEvents");
+        NProgress.done();
+        return { events: JSON.parse(events).events, locations: extractLocations(JSON.parse(events).events) };
+    }
+
     //if (window.location.href.startsWith("http://localhost:3000/")) {
     if (window.location.href.startsWith("http://localhost")) {
         NProgress.done();
@@ -96,6 +102,7 @@ export const getEvents = async () => {
         removeQuery();
         const url = `https://jcu7sw52pi.execute-api.eu-central-1.amazonaws.com/dev/api/get-events/${token}`;
         const result = await axios.get(url);
+
         if (result.data) {
             var locations = extractLocations(result.data.events);
             localStorage.setItem('lastEvents', JSON.stringify(result.data));

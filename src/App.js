@@ -67,17 +67,18 @@ class App extends Component {
 
   componentDidMount() {
     this.mounted = true;
-    getEvents().then((events) => {
-      if (this.mounted) {
-        this.setState({ events, locations: extractLocations(events) });
-      }
-    });
+
+    if (!navigator.onLine) {
+      this.setState({
+        infoText: 'No internet connenction found. Tha data shown is loaded from the cash.'
+      });
+    }
 
     getEvents().then((events) => {
       if (this.mounted) {
         this.setState({ events, locations: extractLocations(events) });
       }
-    })
+    });
   }
 
   componentWillUnmount() {
