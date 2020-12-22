@@ -8,6 +8,9 @@ import NumberOfEvents from './NumberOfEvents';
 import { extractLocations, getEvents } from './api';
 import { InfoAlert } from './Alert';
 import { ErrorAlert } from './Alert'
+import {
+  ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip
+} from 'recharts';
 
 class App extends Component {
   state = {
@@ -44,6 +47,16 @@ class App extends Component {
       });
     }
   }
+
+  getData = () => {
+    const { locations, events } = this.state;
+    const data = locations.map((location) => {
+      const number = events.filter((event) => event.location === location).length
+      const city = location.split(' ').shift()
+      return { city, number };
+    })
+    return data;
+  };
 
   /*updateEvents = (location) => {
     getEvents().then((events) => {
@@ -86,6 +99,7 @@ class App extends Component {
   }
 
   render() {
+    const { locations, numberOfEvents } = this.state;
     return (
       <div className="App">
         <h1>What's up next ...? </h1>
@@ -94,14 +108,29 @@ class App extends Component {
         <InfoAlert className="info-text" text={this.state.infoText} />
         <NumberOfEvents nbrOfEvents={this.state.result} updateEvents={this.updateEvents} />
         <ErrorAlert text={this.state.errMessage} />
+        <h4>Events in each city</h4>
+        <ScatterChart width={800} height={250}
+          margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis type="category" dataKey="city" name="city" />
+          <YAxis type="number" dataKey="number" name="number of events" allowDecimals={false} />
+
+          <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+
+          <Scatter data={this.getData()} fill="#8884d8" />
+
+        </ScatterChart>
         <EventList events={this.state.events} />
       </div>
     );
     //<NumberOfEvents nbrOfEvents={this.state.nbrOfEvents} updateEvents={this.updateEvents} />
     //<NumberOfEvents nbrOfEvents={this.state.result} updateEvents={this.updateEvents} />
     //<NumberOfEvents result={this.filterEvents()} />
+
+    //<ZAxis dataKey="z" range={[64, 144]} name="score" unit="km" />
+    //<Legend />
+    //<Scatter name="B school" data={data02} fill="#82ca9d" />
   }
 }
-
 
 export default App;
