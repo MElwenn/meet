@@ -9,7 +9,7 @@ import { extractLocations, getEvents } from './api';
 import { InfoAlert } from './Alert';
 import { ErrorAlert } from './Alert'
 import {
-  ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip
+  ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 
 class App extends Component {
@@ -109,17 +109,18 @@ class App extends Component {
         <NumberOfEvents nbrOfEvents={this.state.result} updateEvents={this.updateEvents} />
         <ErrorAlert text={this.state.errMessage} />
         <h4>Events in each city</h4>
-        <ScatterChart width={800} height={250}
-          margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis type="category" dataKey="city" name="city" />
-          <YAxis type="number" dataKey="number" name="number of events" allowDecimals={false} />
+        <ResponsiveContainer>
+          <ScatterChart margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis type="category" dataKey="city" name="city" />
+            <YAxis type="number" dataKey="number" name="number of events" allowDecimals={false} />
 
-          <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+            <Tooltip cursor={{ strokeDasharray: '3 3' }} />
 
-          <Scatter data={this.getData()} fill="#8884d8" />
+            <Scatter data={this.getData()} fill="#8884d8" />
 
-        </ScatterChart>
+          </ScatterChart>
+        </ResponsiveContainer>
         <EventList events={this.state.events} />
       </div>
     );
