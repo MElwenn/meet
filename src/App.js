@@ -9,8 +9,9 @@ import { extractLocations, getEvents } from './api';
 import { InfoAlert } from './Alert';
 import { ErrorAlert } from './Alert'
 import {
-  ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
+  ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, /* PieChart, Pie, Sector, Cell */
 } from 'recharts';
+import EventGenre from './EventGenre';
 
 class App extends Component {
   state = {
@@ -18,7 +19,8 @@ class App extends Component {
     locations: [],
     NumberOfEvents: 32,
     selectedLocation: 'all',
-    infoText: ''
+    infoText: '',
+    //genres: []
   };
 
   //filter the results based on location
@@ -50,23 +52,32 @@ class App extends Component {
 
   getData = () => {
     const { locations, events } = this.state;
-    const data = locations.map((location) => {
+    const gridData = locations.map((location) => {
       const number = events.filter((event) => event.location === location).length
       const city = location.split(' ').shift()
       return { city, number };
     })
-    return data;
+    return gridData;
   };
 
-  /*updateEvents = (location) => {
-    getEvents().then((events) => {
-      const locationEvents = (location === 'all') ?
-      events : events.filter((event) => event.location === location);
-      this.setState({
-        events: locationEvents
+  /* eventGenre = ({ events }) => {
+    const [genreData, setGenreData] = useState([]);
+    useEffect(() => {
+      setGenreData(() => getGenreData());
+    }, [events]);
+
+    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+    const getGenreData = () => {
+      const genres = ['React', 'AngularJS', 'jQuery', 'Node', 'JavaScript'];
+      const genreData = genres.map((genre) => {
+        const value = events.filter(({ summary }) => summary.split('').includes(genre)).length;
+        return { name: genre, value };
       });
-    });
-  }*/
+
+      return genreData;
+    }
+  }; */
 
   filterEvents = () => {
     const { locations, events } = this.state;
@@ -100,6 +111,7 @@ class App extends Component {
 
   render() {
     const { locations, numberOfEvents } = this.state;
+    //const { summary } = this.state;
     return (
       <div className="App">
         <h1>What's up next ...? </h1>
@@ -109,7 +121,7 @@ class App extends Component {
         <NumberOfEvents nbrOfEvents={this.state.result} updateEvents={this.updateEvents} />
         <ErrorAlert text={this.state.errMessage} />
         <h4>Events in each city</h4>
-        <ResponsiveContainer>
+        <ResponsiveContainer height={400} >
           <ScatterChart margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis type="category" dataKey="city" name="city" />
@@ -121,16 +133,29 @@ class App extends Component {
 
           </ScatterChart>
         </ResponsiveContainer>
+        <h4>Popularity of Genres</h4>
+        <EventGenre events={this.state.events} />
+        {/*<ResponsiveContainer height={400} >
+          <PieChart id="container">
+            <Pie
+              genreData={genreData}
+              cx={200}
+              cy={200}
+              labelLine={false}
+              label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+              outerRadius={80}
+              fill="#8884d8"
+              dataKey="value"
+            >
+              {
+                genre.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} Name={entry.name} />)
+              }
+            </Pie>
+          </PieChart>
+            </ResponsiveContainer>*/}
         <EventList events={this.state.events} />
       </div>
     );
-    //<NumberOfEvents nbrOfEvents={this.state.nbrOfEvents} updateEvents={this.updateEvents} />
-    //<NumberOfEvents nbrOfEvents={this.state.result} updateEvents={this.updateEvents} />
-    //<NumberOfEvents result={this.filterEvents()} />
-
-    //<ZAxis dataKey="z" range={[64, 144]} name="score" unit="km" />
-    //<Legend />
-    //<Scatter name="B school" data={data02} fill="#82ca9d" />
   }
 }
 
