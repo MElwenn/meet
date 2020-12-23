@@ -93,7 +93,8 @@ export const getEvents = async () => {
     //if (window.location.href.startsWith("http://localhost:3000/")) {
     if (window.location.href.startsWith("http://localhost")) {
         NProgress.done();
-        return mockData;
+        //return mockData;
+        return { events: mockData, locations: extractLocations(mockData) };
     }
 
     const token = await getAccessToken();
@@ -109,6 +110,8 @@ export const getEvents = async () => {
             localStorage.setItem('locations', JSON.stringify(locations));
         }
         NProgress.done();
-        return result.data.events;
+        //return result.data.events;
+        return { events: result.data.events, locations };
+
     }
 };

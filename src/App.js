@@ -55,6 +55,8 @@ class App extends Component {
     const gridData = locations.map((location) => {
       const number = events.filter((event) => event.location === location).length
       const city = location.split(' ').shift()
+      console.log(locations);
+
       return { city, number };
     })
     return gridData;
@@ -89,7 +91,7 @@ class App extends Component {
     return result;
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.mounted = true;
 
     if (!navigator.onLine) {
@@ -98,9 +100,10 @@ class App extends Component {
       });
     }
 
-    getEvents().then((events) => {
+    await getEvents().then((response) => {
+      //console.log(events);
       if (this.mounted) {
-        this.setState({ events, locations: extractLocations(events) });
+        this.setState({ events: response.events, locations: response.locations });
       }
     });
   }
