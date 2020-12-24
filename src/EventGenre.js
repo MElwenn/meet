@@ -1,33 +1,30 @@
+import React, { useEffect, useState } from 'react';
 import { ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 const EventGenre = ({ events }) => {
+    const [data, setData] = useState([]);
+    useEffect(() => { setData(() => getData()); }, [events]);
 
-    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+    const getData = () => {
+        const genres = ['React', 'AngularJS', 'jQuery', 'Node', 'JavaScript'];
+        const data = genres.map((genre) => { //genreData
+            const value = events.filter(({ summary }) => summary.split('').includes(genre)).length; // with or witout blank?
+            return { name: genre, value };
+        });
+        return data;
+    };
 
-    /*const getGenreData = () => {
-        const data = [
-            { name: 'React', value: 47 },
-            { name: 'AngularJS', value: 16 },
-            { name: 'jQuery', value: 16 },
-            { name: 'Node', value: 5 }],
-            { name: 'JavaScript', value: 16 }
-        ];*/
-    const genres = ['React', 'AngularJS', 'jQuery', 'Node', 'JavaScript'];
-    const genreData = genres.map((genre) => {
-        const value = events.filter(({ summary }) => summary.split('').includes(genre)).length;
-        return { name: genre, value };
-    });
+    const COLORS = ['#0099FF', '#00CC99', '#FFCC33', '#FF9933', '#9966CC'];
 
-    //return genreData;
-
+    console.log(events);
 
     return (
         <ResponsiveContainer height={400} >
-            <PieChart id="container">
+            <PieChart width={400} height={400} >
                 <Pie
-                    genreData={genreData}
-                    cx={200}
-                    cy={200}
+                    data={data}
+                    cx="50%"
+                    cy="50%"
                     labelLine={false}
                     label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                     outerRadius={80}
@@ -35,7 +32,7 @@ const EventGenre = ({ events }) => {
                     dataKey="value"
                 >
                     {
-                        genreData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} name={entry.name} />)
+                        data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} name={entry.name} />)
                     }
                 </Pie>
             </PieChart>
