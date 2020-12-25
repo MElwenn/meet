@@ -48,8 +48,8 @@ class App extends Component {
           nbrOfEvents: eventCount
         });
       });
-    }
-  }
+    };
+  };
 
   getData = () => {
     const { locations, events } = this.state;
