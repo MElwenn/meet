@@ -29,7 +29,7 @@ class App extends Component {
       getEvents().then((events) => {
         const locationEvents = (location === 'all') ?
           events :
-          events.filter((event) => event.location === location);
+          events.filter((event) => event.location === location); // ERROR: Uncaught (in promise) TypeError: n.filter is not a function
         const filteredEvents = locationEvents.slice(0, nbrOfEvents);
         this.setState({
           events: filteredEvents,
@@ -42,7 +42,7 @@ class App extends Component {
         const locationEvents = (selectedLocation === 'all') ?
           events :
           events.filter((event) => event.location === selectedLocation);
-        const filteredEvents = locationEvents.slice(0, eventCount);
+        const filteredEvents = locationEvents.slice(0, eventCount); // ERROR: (intermediate value).slice is not a function
         this.setState({
           events: filteredEvents,
           nbrOfEvents: eventCount
