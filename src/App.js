@@ -9,7 +9,7 @@ import { extractLocations, getEvents } from './api';
 import { InfoAlert } from './Alert';
 import { ErrorAlert } from './Alert'
 import {
-  ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, /* PieChart, Pie, Sector, Cell */
+  ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 import EventGenre from './EventGenre';
 
@@ -20,7 +20,6 @@ class App extends Component {
     NumberOfEvents: 32,
     selectedLocation: 'all',
     infoText: '',
-    //genres: []
   };
 
   //filter the results based on location
@@ -62,25 +61,6 @@ class App extends Component {
     return gridData;
   };
 
-  /* eventGenre = ({ events }) => {
-    const [genreData, setGenreData] = useState([]);
-    useEffect(() => {
-      setGenreData(() => getGenreData());
-    }, [events]);
-
-    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-
-    const getGenreData = () => {
-      const genres = ['React', 'AngularJS', 'jQuery', 'Node', 'JavaScript'];
-      const genreData = genres.map((genre) => {
-        const value = events.filter(({ summary }) => summary.split('').includes(genre)).length;
-        return { name: genre, value };
-      });
-
-      return genreData;
-    }
-  }; */
-
   filterEvents = () => {
     const { locations, events } = this.state;
     const result = locations.map((location) => {
@@ -101,7 +81,6 @@ class App extends Component {
     }
 
     await getEvents().then((response) => {
-      //console.log(events);
       if (this.mounted) {
         this.setState({ events: response.events, locations: response.locations });
       }
@@ -137,24 +116,6 @@ class App extends Component {
           <h4>Popularity of Genres</h4>
           <EventGenre events={this.state.events} />
         </div>
-        {/*<ResponsiveContainer height={400} >
-          <PieChart id="container">
-            <Pie
-              genreData={genreData}
-              cx={200}
-              cy={200}
-              labelLine={false}
-              label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-              outerRadius={80}
-              fill="#8884d8"
-              dataKey="value"
-            >
-              {
-                genre.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} Name={entry.name} />)
-              }
-            </Pie>
-          </PieChart>
-            </ResponsiveContainer>*/}
         <EventList events={this.state.events} />
       </div>
     );
