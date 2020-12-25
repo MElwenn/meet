@@ -113,7 +113,7 @@ class App extends Component {
   }
 
   render() {
-    const { locations, numberOfEvents } = this.state;
+    const { locations, numberOfEvents, events } = this.state;
     //const { summary } = this.state;
     return (
       <div className="App">
@@ -123,21 +123,20 @@ class App extends Component {
         <InfoAlert className="info-text" text={this.state.infoText} />
         <NumberOfEvents nbrOfEvents={this.state.result} updateEvents={this.updateEvents} />
         <ErrorAlert text={this.state.errMessage} />
-        <h4>Events in each city</h4>
-        <ResponsiveContainer height={400} >
-          <ScatterChart margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis type="category" dataKey="city" name="city" />
-            <YAxis type="number" dataKey="number" name="number of events" allowDecimals={false} />
-
-            <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-
-            <Scatter data={this.getData()} fill="#8884d8" />
-
-          </ScatterChart>
-        </ResponsiveContainer>
-        <h4>Popularity of Genres</h4>
-        <EventGenre events={this.state.events} />
+        <div className="data-vis-wrapper">
+          <h4>Events in each city</h4>
+          <ResponsiveContainer height={400} >
+            <ScatterChart margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis type="category" dataKey="city" name="city" />
+              <YAxis type="number" dataKey="number" name="number of events" allowDecimals={false} />
+              <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+              <Scatter data={this.getData()} fill="#8884d8" />
+            </ScatterChart>
+          </ResponsiveContainer>
+          <h4>Popularity of Genres</h4>
+          <EventGenre events={this.state.events} />
+        </div>
         {/*<ResponsiveContainer height={400} >
           <PieChart id="container">
             <Pie
