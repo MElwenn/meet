@@ -17,47 +17,29 @@ class App extends Component {
   state = {
     events: [],
     locations: [],
-    NumberOfEvents: 32,
+    nbrOfEvents: 32,
     selectedLocation: 'all',
     infoText: '',
   };
 
-  //filter the results based on location
-  updateEvents = (location, eventCount) => {
-    const { selectedLocation, nbrOfEvents } = this.state;
-    if (location) {
-      getEvents().then((events) => {
-        const locationEvents = (location === 'all') ?
-          events :
-          events.filter((event) => event.location === location); // ERROR: Uncaught (in promise) TypeError: n.filter is not a function
-        const filteredEvents = locationEvents.slice(0, nbrOfEvents);
-        this.setState({
-          events: filteredEvents,
-          selectedLocation: location
-        });
+  updateEvents = (location, nbrOfEvents = this.state.nbrOfEvents) => {
+    getEvents().then((response) => {
+      const { events, locations } = response
+      const locationEvents = (location === 'all' || !location) ?
+        events :
+        events.filter((event) => event.location === location);
+      this.setState({
+        events: locationEvents.slice(0, nbrOfEvents),
+        nbrOfEvents
       });
-    }
-    else {
-      getEvents().then((events) => {
-        const locationEvents = (selectedLocation === 'all') ?
-          events :
-          events.filter((event) => event.location === selectedLocation);
-        const filteredEvents = locationEvents.slice(0, eventCount); // ERROR: (intermediate value).slice is not a function
-        this.setState({
-          events: filteredEvents,
-          nbrOfEvents: eventCount
-        });
-      });
-    };
-  };
+    });
+  }
 
   getData = () => {
     const { locations, events } = this.state;
     const gridData = locations.map((location) => {
       const number = events.filter((event) => event.location === location).length
       const city = location.split(' ').shift()
-      console.log(locations);
-
       return { city, number };
     })
     return gridData;
@@ -102,7 +84,7 @@ class App extends Component {
         <h2>Choose your City</h2>
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
         <InfoAlert className="info-text" text={this.state.infoText} />
-        <NumberOfEvents nbrOfEvents={this.state.result} updateEvents={this.updateEvents} />
+        <NumberOfEvents nbrOfEvents={this.state.nbrOfEvents} updateEvents={this.updateEvents} />
         <ErrorAlert text={this.state.errMessage} />
         <div className="data-vis-wrapper">
           <h4>Events in each city</h4>
